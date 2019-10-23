@@ -3,23 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\GroupCollection;
+use App\Http\Resources\GroupResource;
 use App\Models\Group;
 
 class GroupController extends Controller
 {
     public function index()
     {
-        return Group::all();
+        return new GroupCollection(Group::all());
     }
  
     public function show($id)
     {
-        return Group::find($id);
+        return new GroupResource(Group::findOrFail($id));
     }
 
     public function store(Request $request)
     {
-        return Group::create($request->all());
+        $groups = Group::create($request->all());
+
+        return (new GroupResource($groups))
+            ->response()
+            ->setStatusCode(201);
     }
 
     public function update(Request $request, $id)
@@ -27,7 +33,7 @@ class GroupController extends Controller
         $group = Group::findOrFail($id);
         $group->update($request->all());
 
-        return $group;
+        return response()->json(null, 204);
     }
 
     public function delete(Request $request, $id)
@@ -35,6 +41,6 @@ class GroupController extends Controller
         $group = Group::findOrFail($id);
         $group->delete();
 
-        return 204;
+        return response()->json(null, 204);
     }
 }
