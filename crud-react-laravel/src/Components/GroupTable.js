@@ -2,7 +2,7 @@ import React from 'react'
 import { Table } from 'semantic-ui-react'
 
 export default ({ groups }) => (
-    <Table celled padded>
+    <Table sortable celled padded fixed>
         <Table.Header>
         <Table.Row>
             <Table.HeaderCell singleLine>Group ID</Table.HeaderCell>

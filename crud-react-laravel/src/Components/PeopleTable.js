@@ -2,7 +2,7 @@ import React from 'react'
 import { Table } from 'semantic-ui-react'
 
 export default ({ people }) => (
-    <Table celled padded>
+    <Table sortable celled padded fixed>
         <Table.Header>
             <Table.Row>
                 <Table.HeaderCell singleLine>First Name</Table.HeaderCell>
@@ -14,7 +14,7 @@ export default ({ people }) => (
 
         <Table.Body>
         {
-            people.map((person, index) => {
+            people.filter(person => person.status === 'active').map((person, index) => {
                 return (
                     <Table.Row key={index}>
                         <Table.Cell singleLine>{ person.first_name }</Table.Cell>
