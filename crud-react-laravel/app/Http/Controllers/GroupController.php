@@ -21,7 +21,7 @@ class GroupController extends Controller
 
     public function store(Request $request)
     {
-        $groups = Group::create($request->all());
+        $groups = Group::updateOrCreate(['id' => $request->id], $request->all());
 
         return (new GroupResource($groups))
             ->response()
